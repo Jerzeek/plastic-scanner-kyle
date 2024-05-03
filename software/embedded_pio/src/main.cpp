@@ -7,7 +7,7 @@
 #include "LCD.h"
 #include <CST816S.h>
 
-CST816S touch(21, 22, 26, 15); // sda, scl, rst, irq
+CST816S touch(22, 20, 13, 15); // sda, scl, rst, irq
 bool allow = 0;
 
 Adafruit_NAU7802 nau;
@@ -19,7 +19,7 @@ long startT = 0;
 
 uint64_t sensor_readings[15];
 
-const uint8_t buttonPin = 17;
+const uint8_t buttonPin = 38;
 
 void probe(bool probeNumber)
 {
@@ -60,7 +60,7 @@ void initNAU7802()
   {
     Serial.println("Failed to find NAU7802");
   }
-  nau.setGain(NAU7802_GAIN_32);
+  nau.setGain(NAU7802_GAIN_8);
   nau.setLDO(NAU7802_EXTERNAL);
   nau.setRate(NAU7802_RATE_320SPS);
 
@@ -70,7 +70,9 @@ void initNAU7802()
 
 void initSenseModule()
 {
+  //Serial.println("Initialising LED driver");
   initTLC(0x40, 4); // Initialise TLC LED Driver
+  //Serial.println("Initialising ADC driver");
   initNAU7802();    // Initialise the ADC
   delay(500);       // Allow time for the initNAU to work,
 }
@@ -251,7 +253,7 @@ void loop()
   }
 
   // Serial Method
-  if (buttonState == HIGH)
+  if (buttonState == LOW)
   {
     loadingpage();
     if (bluth_tog == 0)
