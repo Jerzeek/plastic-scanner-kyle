@@ -11,7 +11,7 @@ from keras.callbacks import EarlyStopping
 import serial
 
 # Load the model
-model = load_model("C:/Users/devos/Nextcloud/Projects/Plastic Scanner 2024/plastic-scanner-kyle/software/ml_model/15_point_showcase_model.keras")
+model = load_model("15_point_showcase_model.keras")
 print("done importing model")
 # Open the serial port
 ser = serial.Serial('COM4', baudrate=115200)  # Adjust the baudrate as needed
@@ -20,7 +20,7 @@ ser = serial.Serial('COM4', baudrate=115200)  # Adjust the baudrate as needed
 received_data = ""
 
 # Get labels from csv file
-data = pd.read_csv("C:/Users/devos/Nextcloud/Projects/Plastic Scanner 2024/plastic-scanner-kyle/software/ml_model/plastic_data/15_point_showcase.csv")
+data = pd.read_csv("15_point_showcase.csv")
 X = data.drop(columns=["Material_Type"])
 y = data["Material_Type"]
 label_encoder = LabelEncoder()
